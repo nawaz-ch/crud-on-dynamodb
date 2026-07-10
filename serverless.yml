@@ -29,11 +29,13 @@ functions:
           path: post/{postId}
           method: GET
 
-    iamRoleStatements:
-      - Effect: "Allow"
-        Action:
-          - "dynamodb:GetItem"
-        Resource: !GetAtt PostsTable.Arn
+    iam:
+       role:
+        statements:
+         - Effect: "Allow"
+           Action:
+             - "dynamodb:UpdateItem"
+           Resource: !GetAtt PostsTable.Arn
   createPost:
      handler: api.createPost
      name: create-post
@@ -43,11 +45,13 @@ functions:
        - http:
            path: post
            method: POST
-     iamRoleStatements:
-       - Effect: "Allow"
-         Action:
+     iam:
+       role:
+        statements:
+         - Effect: "Allow"
+           Action:
              - "dynamodb:PutItem"
-         Resource: !GetAtt PostsTable.Arn
+           Resource: !GetAtt PostsTable.Arn
 
 
   updatePost:
@@ -59,11 +63,13 @@ functions:
        - http:
            path: post/{postId}
            method: PUT
-     iamRoleStatements:
-       - Effect: "Allow"
-         Action:
+     iam:
+       role:
+        statements:
+         - Effect: "Allow"
+           Action:
              - "dynamodb:UpdateItem"
-         Resource: !GetAtt PostsTable.Arn
+           Resource: !GetAtt PostsTable.Arn
 
   DeletePost:
      handler: api.DeletePost
@@ -74,11 +80,13 @@ functions:
        - http:
            path: post/{postId}
            method: DELETE
-     iamRoleStatements:
-       - Effect: "Allow"
-         Action:
+     iam:
+       role:
+        statements:
+         - Effect: "Allow"
+           Action:
              - "dynamodb:DeleteItem"
-         Resource: !GetAtt PostsTable.Arn
+           Resource: !GetAtt PostsTable.Arn
   getAllPosts:
      handler: api.getAllPosts
      name: get-all-posts
@@ -88,11 +96,13 @@ functions:
        - http:
            path: posts
            method: GET
-     iamRoleStatements:
-       - Effect: "Allow"
-         Action:
+     iam:
+       role:
+        statements:
+         - Effect: "Allow"
+           Action:
              - "dynamodb:Scan"
-         Resource: !GetAtt PostsTable.Arn
+           Resource: !GetAtt PostsTable.Arn
 
 
 
